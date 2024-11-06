@@ -10,10 +10,6 @@ import java.util.List;
 @Entity
 public class Job extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private int id;
-
     private String employer;
     private String skills;
 
