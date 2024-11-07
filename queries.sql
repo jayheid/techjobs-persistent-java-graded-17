@@ -14,4 +14,6 @@ WHERE
 
 --Part 3
 
+DROP TABLE job;
+
 --Part 4
