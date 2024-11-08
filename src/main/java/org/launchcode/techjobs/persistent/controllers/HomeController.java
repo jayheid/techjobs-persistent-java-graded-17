@@ -47,22 +47,18 @@ public class HomeController {
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                        Errors errors, Model model, @RequestParam(value="employerId") int employerId) {
 
+        Optional <Employer> optEmployer = employerRepository.findById(employerId);
+
         if (errors.hasErrors()) {
 	    model.addAttribute("title", "Add Job");
             return "add";
+        }else{
+            if (optEmployer.isPresent()) {
+                Employer newEmployer = optEmployer.get();
+                newJob.setEmployer(newEmployer);
+                jobRepository.save(newJob);
+            }
         }
-
-
-        // Requires making Employer field Optional type in Job Model
-        Optional <Employer> optEmployer = employerRepository.findById(employerId);
-        newJob.setEmployer(optEmployer);
-        // newJob.setEmployer(employerRepository.findById(employerId));
-        // Employer newEmployer = employerRepository.findById(employerId).get();
-
-        // Should jobRepository be used to save newJob?
-        jobRepository.save(newJob);
-
-
 
         return "redirect:";
     }
